@@ -4,7 +4,6 @@ import org.martynas.blogapp.model.Authority;
 import org.martynas.blogapp.model.BlogUser;
 import org.martynas.blogapp.repository.AuthorityRepository;
 import org.martynas.blogapp.repository.BlogUserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -24,7 +23,6 @@ public class BlogUserServiceImpl implements BlogUserService {
     private final BlogUserRepository blogUserRepository;
     private final AuthorityRepository authorityRepository;
 
-    @Autowired
     public BlogUserServiceImpl(BCryptPasswordEncoder bcryptEncoder, BlogUserRepository blogUserRepository, AuthorityRepository authorityRepository) {
         this.bcryptEncoder = bcryptEncoder;
         this.blogUserRepository = blogUserRepository;

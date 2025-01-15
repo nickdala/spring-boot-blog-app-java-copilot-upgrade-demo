@@ -4,7 +4,6 @@ import org.martynas.blogapp.model.BlogUser;
 import org.martynas.blogapp.model.Post;
 import org.martynas.blogapp.service.BlogUserService;
 import org.martynas.blogapp.service.PostService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -24,7 +23,6 @@ public class PostController {
     private final PostService postService;
     private final BlogUserService blogUserService;
 
-    @Autowired
     public PostController(PostService postService, BlogUserService blogUserService) {
         this.postService = postService;
         this.blogUserService = blogUserService;

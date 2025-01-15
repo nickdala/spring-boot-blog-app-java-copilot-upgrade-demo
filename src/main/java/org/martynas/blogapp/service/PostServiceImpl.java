@@ -2,7 +2,6 @@ package org.martynas.blogapp.service;
 
 import org.martynas.blogapp.model.Post;
 import org.martynas.blogapp.repository.PostRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -13,7 +12,6 @@ public class PostServiceImpl implements PostService {
 
     private final PostRepository postRepository;
 
-    @Autowired
     public PostServiceImpl(PostRepository postRepository) {
         this.postRepository = postRepository;
     }

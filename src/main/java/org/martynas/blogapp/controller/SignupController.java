@@ -2,7 +2,6 @@ package org.martynas.blogapp.controller;
 
 import org.martynas.blogapp.model.BlogUser;
 import org.martynas.blogapp.service.BlogUserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,7 +24,6 @@ public class SignupController {
 
     private final BlogUserService blogUserService;
 
-    @Autowired
     public SignupController(BlogUserService blogUserService) {
         this.blogUserService = blogUserService;
     }

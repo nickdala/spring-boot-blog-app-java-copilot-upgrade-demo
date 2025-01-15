@@ -5,13 +5,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
 
 import javax.sql.DataSource;
 
 @Configuration
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfig {
 
     private final DataSource dataSource;
     private static final String USERS_SQL_QUERY = "select username,password,enabled from users where username = ?";
@@ -21,18 +22,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "inner join authorities on (users_authorities.authority_id = authorities.id)\n" +
             "where users.username = ?;";
 
-    @Autowired
     public WebSecurityConfig(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
     @Bean
-    public BCryptPasswordEncoder bcryptEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http
                 .csrf().disable()   // if enabled must use post method to logout and additional configuration needed
@@ -58,17 +53,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .sessionManagement().maximumSessions(1);
+        return http.build();
     }
 
     @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
+    public void configureGlobal(AuthenticationManagerBuilder authenticationManagerBuilder, BCryptPasswordEncoder passwordEncoder) throws Exception {
 
         authenticationManagerBuilder
                 .jdbcAuthentication()
                 .usersByUsernameQuery(USERS_SQL_QUERY) // not really necessary, as users table follows default Spring Security User schema
                 .authoritiesByUsernameQuery(AUTHORITIES_SQL_QUERY)  // a must as using customized authorities table, many to many variation
                 .dataSource(dataSource)
-                .passwordEncoder(bcryptEncoder());
+                .passwordEncoder(passwordEncoder);
 
 //        authenticationManagerBuilder
 //                .inMemoryAuthentication()
