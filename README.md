@@ -1,4 +1,4 @@
-# Blogging platform (made with Spring Boot) used a demo for the [GitHub Copilot upgrade assistant for Java](https://devblogs.microsoft.com/java/technical-preview-github-copilot-upgrade-assistant-for-java/)
+# Blogging platform (made with Spring Boot) used a demo
 
 #### Simple blogging platform project I made as started to learn Spring framework.
 ## Live Demo (runs on FreeBSD 12)
