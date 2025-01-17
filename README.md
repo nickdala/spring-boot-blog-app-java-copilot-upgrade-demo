@@ -1,4 +1,4 @@
-# Blogging platform (made with Spring Boot) used a demo
+# Blogging platform (made with Spring Boot) used as a demo
 
 #### Simple blogging platform project I made as started to learn Spring framework.
 ## Live Demo (runs on FreeBSD 12)
