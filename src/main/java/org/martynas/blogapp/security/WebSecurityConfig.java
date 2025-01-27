@@ -26,11 +26,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         this.dataSource = dataSource;
     }
 
-    @Bean
-    public BCryptPasswordEncoder bcryptEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
@@ -61,14 +56,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
+    public void configureGlobal(AuthenticationManagerBuilder authenticationManagerBuilder, BCryptPasswordEncoder passwordEncoder) throws Exception {
 
         authenticationManagerBuilder
                 .jdbcAuthentication()
                 .usersByUsernameQuery(USERS_SQL_QUERY) // not really necessary, as users table follows default Spring Security User schema
                 .authoritiesByUsernameQuery(AUTHORITIES_SQL_QUERY)  // a must as using customized authorities table, many to many variation
                 .dataSource(dataSource)
-                .passwordEncoder(bcryptEncoder());
+                .passwordEncoder(passwordEncoder);
 
 //        authenticationManagerBuilder
 //                .inMemoryAuthentication()
